@@ -1,0 +1,21 @@
+{
+  "name": "GalaxAIPlugin",
+  "tree": {
+    "$className": "DataModel",
+    "ServerScriptService": {
+      "$className": "ServerScriptService",
+      "Plugin.server.lua": {
+        "$path": "src/Plugin.server.lua"
+      },
+      "GalaxModules": {
+        "$className": "Folder",
+        "GuiBuilder": {"$path": "src/GuiBuilder.lua"},
+        "CommandParser": {"$path": "src/CommandParser.lua"},
+        "Templates": {"$path": "src/Templates.lua"},
+        "Theme": {"$path": "src/Theme.lua"},
+        "CodeGenerator": {"$path": "src/CodeGenerator.lua"},
+        "Security": {"$path": "src/Security.lua"}
+      }
+    }
+  }
+}
