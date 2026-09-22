@@ -1,51 +1,10 @@
 local M = {}
-
-local function has(input, token)
-    return string.find(string.lower(input), token, 1, true) ~= nil
-end
-
-function M.parse(prompt)
-    if type(prompt) ~= "string" or string.len(prompt:gsub("%s", "")) == 0 then
-        return nil
-    end
-
-    local kind = "menu"
-    local theme = "dark"
-    local platform = "desktop"
-    local title = "MENU PRINCIPAL"
-
-    if has(prompt, "loja") or has(prompt, "shop") then
-        kind = "shop"
-        title = "LOJA"
-    elseif has(prompt, "invent") then
-        kind = "inventory"
-        title = "INVENTÁRIO"
-    elseif has(prompt, "hud") or has(prompt, "vida") or has(prompt, "status") then
-        kind = "hud"
-        title = "HUD"
-    elseif has(prompt, "login") or has(prompt, "entrar") then
-        kind = "login"
-        title = "LOGIN"
-    elseif has(prompt, "config") then
-        kind = "settings"
-        title = "CONFIGURAÇÕES"
-    end
-
-    if has(prompt, "roxo") or has(prompt, "purple") then theme = "purple"
-    elseif has(prompt, "neon") then theme = "neon"
-    elseif has(prompt, "light") or has(prompt, "claro") then theme = "light"
-    elseif has(prompt, "medieval") then theme = "medieval" end
-
-    if has(prompt, "celular") or has(prompt, "mobile") or has(prompt, "phone") then platform = "mobile" end
-
-    return {
-        kind = kind,
-        theme = theme,
-        title = title,
-        platform = platform,
-        layout = {width = 0.72, height = 0.68},
-        effects = {"fade"},
-    }
-end
-
+local themes = {
+    dark = {background = Color3.fromRGB(20,23,31), secondary = Color3.fromRGB(28,34,46), accent = Color3.fromRGB(123,92,255), text = Color3.fromRGB(240,241,245), muted = Color3.fromRGB(180,186,205)},
+    purple = {background = Color3.fromRGB(36,22,52), secondary = Color3.fromRGB(57,39,80), accent = Color3.fromRGB(196,97,255), text = Color3.new(1,1,1), muted = Color3.fromRGB(230,205,250)},
+    neon = {background = Color3.fromRGB(12,25,30), secondary = Color3.fromRGB(17,39,45), accent = Color3.fromRGB(0,240,200), text = Color3.fromRGB(230,255,250), muted = Color3.fromRGB(165,220,220)},
+    light = {background = Color3.fromRGB(238,242,248), secondary = Color3.fromRGB(220,228,241), accent = Color3.fromRGB(67,108,255), text = Color3.fromRGB(13,17,27), muted = Color3.fromRGB(77,91,112)},
+    medieval = {background = Color3.fromRGB(52,37,23), secondary = Color3.fromRGB(79,54,34), accent = Color3.fromRGB(212,158,77), text = Color3.fromRGB(255,234,190), muted = Color3.fromRGB(235,206,160)},
+}
+function M.get(name) return themes[name] or themes.dark end
 return M

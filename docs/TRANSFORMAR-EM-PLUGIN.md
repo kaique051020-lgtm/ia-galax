@@ -1,28 +1,21 @@
-# Transformando em plugin
+# Como usar
 
-## Método recomendado: Rojo
+1. Baixe o ZIP do GitHub e extraia.
+2. No Roblox Studio, crie um plugin local chamado `GalaxAIPlugin`.
+3. Coloque um Script principal dentro do plugin e cole `src/Plugin.server.lua`.
+4. Crie uma Folder chamada `GalaxModules` como filha do Script principal.
+5. Dentro de `GalaxModules`, crie sete ModuleScripts com estes nomes: `GenerationEngine`, `GuiBuilder`, `CommandParser`, `Templates`, `Theme`, `CodeGenerator` e `Security`.
+6. Cole em cada ModuleScript o arquivo `.lua` com o mesmo nome.
+7. Feche e reabra o Studio.
+8. Abra a aba `Plugins`, clique em `Galax AI` e escreva um pedido.
 
-1. Instale o [Rojo](https://rojo.space/).
-2. No terminal, entre na pasta do projeto.
-3. Execute `rojo serve`.
-4. No Roblox Studio, instale o plugin do Rojo e conecte ao projeto.
-5. O `Plugin.server.lua` aparecerá em `ServerScriptService` durante o desenvolvimento.
-6. Teste os comandos no painel **Galax AI**.
-7. Quando terminar, gere um arquivo `.rbxm`/plugin pela ferramenta de build do Rojo ou copie a árvore para um plugin local.
+Exemplos:
 
-## Método manual
+- `crie uma loja neon roxa`
+- `crie um inventário medieval`
+- `crie um HUD para celular`
+- `crie uma tela de login clara`
 
-1. No Roblox Studio, abra **Plugins > New Plugin** ou crie um plugin local.
-2. Crie um Script principal chamado `GalaxAIPlugin`.
-3. Cole o conteúdo de `src/Plugin.server.lua` nele.
-4. Dentro do script, crie uma Folder chamada `GalaxModules`.
-5. Para cada arquivo de `src/`, crie um `ModuleScript` com o mesmo nome e cole seu conteúdo.
-6. Verifique se `GuiBuilder`, `CommandParser`, `Templates`, `Theme`, `CodeGenerator` e `Security` são filhos de `GalaxModules`.
-7. Salve o plugin e reabra o Studio.
+A criação aparece em `StarterGui > GalaxGenerated`.
 
-## Observações
-
-- O código cria a GUI em `StarterGui`, não no jogo publicado automaticamente.
-- O primeiro protótipo funciona sem internet e sem API.
-- Em uma versão distribuída, não use chaves secretas dentro de Scripts do plugin.
-- Faça backup do lugar antes de testar geradores externos.
+Esta versão é local: não usa uma IA online e não cria modelos 3D. Ela prepara a estrutura para uma futura IA real.
