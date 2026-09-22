@@ -1,51 +1,96 @@
-# Galax AI Studio Plugin
+# Galax AI Studio
 
-Projeto original para Roblox Studio inspirado em ferramentas de criação assistida por IA. Ele cria GUIs por comandos em português, usa templates locais e foi preparado para receber um backend de IA no futuro.
+Projeto original para Roblox Studio com foco em criar interfaces de jogo com IA local e arquitetura pronta para backend real.
 
-> Não é uma cópia do ForgeGUI/ForgeUI e não inclui código ou assets proprietários.
+Este projeto foi pensado como uma base melhorada e mais segura do que um gerador básico de templates: ele separa parsing, schema, geração visual, regras de segurança e integração futura com IA externa.
 
-## O que já funciona
+## Objetivo principal
 
-- Painel dockável dentro do Roblox Studio.
-- Comandos locais: `menu`, `loja`, `inventario`, `hud` e `limpar`.
-- Criação automática no `StarterGui`.
-- Temas neon, escuro, claro e medieval.
-- Layout responsivo usando `Scale`.
-- Geração de LocalScripts simples para botões.
-- Modo de simulação de IA: interpreta frases como `crie uma loja neon roxa`.
+Criar uma ferramenta original para Roblox Studio que:
 
-## Estrutura
+- entende pedidos em português;
+- converte prompts em um schema estruturado;
+- monta GUIs com objetos Roblox;
+- gera scripts básicos em Luau;
+- permite conexão com backend de IA em um segundo passo;
+- nunca executa código remoto ou chaves secretas dentro do plugin.
+
+## Diferencial da arquitetura
+
+A ideia não é apenas "escolher um template pronto". A arquitetura foi montada para ficar próxima do que uma IA real faria:
+
+1. Prompt do usuário
+2. Parser analisa intenção, estilo, plataforma e tipo de tela
+3. Engine cria um schema de UI
+4. Builder cria objetos reais no Roblox Studio
+5. Generator produz código de apoio
+6. Security valida tudo antes de aceitar
+7. Backend externo pode substituir a camada local quando necessário
+
+## Estrutura da base atual
 
 ```text
 src/
-  Plugin.server.lua       -- ponto de entrada do plugin
-  GuiBuilder.lua          -- cria objetos Roblox
-  CommandParser.lua       -- interpreta comandos locais
-  Templates.lua           -- layouts prontos
-  Theme.lua               -- cores e estilo
-  CodeGenerator.lua       -- scripts Luau básicos
-  Security.lua            -- validação de respostas externas
-rojo.project.json         -- projeto Rojo opcional
+  Plugin.server.lua
+  GenerationEngine.lua
+  GuiBuilder.lua
+  CommandParser.lua
+  Templates.lua
+  Theme.lua
+  CodeGenerator.lua
+  Security.lua
 backend/
-  README.md               -- contrato para conectar uma IA real
-  server.example.js       -- servidor de exemplo (não usa chave real)
+  README.md
+  server.example.js
 docs/
   INSTALACAO.md
   TRANSFORMAR-EM-PLUGIN.md
   COMANDOS.md
+README.md
+rojo.project.json
 ```
 
-## Instalação rápida sem backend
+## Como funciona agora
 
-1. Instale o Roblox Studio.
-2. Abra um lugar de teste.
-3. Siga `docs/TRANSFORMAR-EM-PLUGIN.md`.
-4. No painel, digite `crie menu neon roxo` e clique em **Gerar**.
+O plugin reconhece textos como:
 
-## Próximos passos
+- `crie um menu neon roxo`
+- `faça uma loja medieval`
+- `construa um inventário com 3 slots`
+- `quero um hud futurista`
+- `crie uma tela de login moderna`
 
-Para geração real por IA, implemente um backend separado conforme `backend/README.md`. Nunca coloque uma chave de OpenAI, Gemini ou outro provedor no plugin distribuído.
+Ele transforma isso em uma estrutura tipo:
 
-## Aviso de segurança
+```lua
+{
+  kind = "shop",
+  theme = "purple",
+  title = "LOJA",
+  platform = "desktop",
+  elements = {
+    { type = "label", text = "Seus itens" },
+    { type = "button", text = "Comprar" },
+    { type = "button", text = "Sair" }
+  }
+}
+```
 
-Revise todo script gerado antes de executar. O plugin não deve inserir `require` de IDs desconhecidos, código ofuscado, backdoors, loaders remotos ou comandos que apaguem o projeto.
+E então cria a GUI real no `StarterGui`.
+
+## Diferencial em relação a ferramentas simples
+
+Este projeto foi desenhado para evoluir de modo original:
+
+- parser inteligente de texto;
+- schema normalizado;
+- múltiplos tipos de UI;
+- temas configuráveis;
+- scripts via gerador seguro;
+- integração pronta para backend externo.
+
+## Próximo nível
+
+A próxima etapa é substituir o motor local por um backend com IA real, mantendo `Security` e `SchemaValidator` como camada obrigatória.
+
+Nunca exponha chaves de IA no plugin. Use um servidor separado, com autenticação, rate limit e validação de schema antes de devolver qualquer resposta ao Studio.
